@@ -1,0 +1,47 @@
+local LocalPlayer = game.Players.LocalPlayer
+local Character = LocalPlayer.Character
+local Backroom = game:GetObjects("rbxassetid://9466332996")[1]
+local Teleport = true
+local Folder = Instance.new("Folder", workspace)
+local ExitPart = Instance.new("Part", workspace)
+local ExitTP = true
+ExitPart.Size = Vector3.new(4, 4, 4)
+ExitPart.Position = Vector3.new(-206, 115, -473)
+ExitPart.Name = "Exit"
+Backroom.Parent = Folder
+Backroom:MoveTo(Vector3.new(0, 100, 0))
+firesignal(game.ReplicatedStorage.Bricks.Caption.OnClientEvent, "Made By puffer fish [ killianPGT ]#9003")
+
+local Sound = Instance.new("Sound", Folder)
+Sound.Looped = true
+Sound.SoundId = "http://www.roblox.com/asset/?id=7009793551"
+
+
+local TP = Instance.new("Part", workspace)
+TP.Size = Vector3.new(4, 4, 4)
+TP.Position = workspace.CurrentRooms["0"].Parts.FakeElevator.FakeDoor.Position
+
+TP.Touched:Connect(function(hit)
+    local player = game:GetService("Players"):GetPlayerFromCharacter(hit.Parent)
+    if player then
+		if Teleport == true then
+						Character:MoveTo(Vector3.new(0, 120, 0))
+						Teleport = false
+						Sound:Play()
+		end
+    end
+end)
+
+ExitPart.Touched:Connect(function()
+if player then
+	if ExitTP == true then
+				Character:MoveTo(Vector3.new(7, 2, 3248))
+				ExitPart:Destroy()
+				Backroom:Destroy()
+				TP:Destroy()
+				Sound:Stop()
+				ExitTP = false
+			end
+	end
+end)
+
